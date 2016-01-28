@@ -19,24 +19,32 @@ if(isset($_POST['submit']))
     $numSlices = $_POST['numSlices'];
     $brownies = $_POST['brownies'];
     $salads = $_POST['salads'];
-    //$toppings = $_POST['topping'];
-    $toppings = '';
+    $topping = $_POST['topping'];
         
-    //IF $_POST
-        //for all the stuff in POST
-        //loop through, adding each each 
-        //for($i ; $i < length($_POST; $i++){
-          //  $cart[] = new item($_POST[$i]}
     
     $total = ($numSlices * $pizza->price);
     $total += ($brownies * $brownie->price);
     $total += ($salads * $salad->price);
     
-    if($_POST['pepperoni'] != "1"){
-           $toppings += 'pepperoni';
+    echo "Your order includes: <br/><br/>";
+    if ($numSlices > 0  and $toppings.length > 0) {
+            $toppings = '';
+        foreach($topping as $topps) {
+              $toppings .= $topps; 
+        }
+        if ($numSlices = 1){
+        echo $numSlices . ' slice of Pizza topped with ' . $toppings;
+        }else {
+        echo $numSlices . ' slices of Pizza topped with ' . $toppings;
+        }
+    }else if($numSlices = 1){
+        echo $numSlices . ' slice of Pizza topped with no toppings'; 
+    }else if($numSlices > 1){
+        echo $numSlices . ' slices of Pizza topped with no toppings'; 
     }
     
-    echo 'The total for the order is $' .  $total;
+    
+    echo '<br/>The total for the order is $' .  $total;
 }else{//show form
     echo '
     <form method="post" action="' . THIS_PAGE . '">
@@ -44,11 +52,11 @@ if(isset($_POST['submit']))
     <legend>Pizza</legend>
     
     Select toppings:<br />
-    <input type="checkbox" value="1" name="pepperoni">Pepperoni<br/>
-    <input type="checkbox" value="salami" name="topping">Salami<br/>
-    <input type="checkbox" value="pineapple" name="topping">Pineapple<br/>
-    <input type="checkbox" value="sausage" name="topping">Sausage<br/>
-    <input type="checkbox" value="mushroom" name="topping">Mushroom<br/>
+    <input type="checkbox" name="topping[]" value="pepperoni, ">Pepperoni<br/>
+    <input type="checkbox" name="topping[]" value="salami, ">Salami<br/>
+    <input type="checkbox" name="topping[]" value="pineapple, ">Pineapple<br/>
+    <input type="checkbox" name="topping[]" value="sausage, ">Sausage<br/>
+    <input type="checkbox" name="topping[]" value="mushroom">Mushroom<br/>
     </select><br />
     
     How many slices?<br />
